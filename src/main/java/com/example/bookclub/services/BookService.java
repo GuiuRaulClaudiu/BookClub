@@ -4,6 +4,7 @@ import com.example.bookclub.models.Account;
 import com.example.bookclub.models.Book;
 import com.example.bookclub.models.BookOwner;
 import com.example.bookclub.models.Borrowed;
+import com.example.bookclub.repositories.BookOwnerRepository;
 import com.example.bookclub.repositories.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,8 @@ import java.util.stream.Collectors;
 public class BookService {
     @Autowired
     private BookRepository bookRepository;
-
+    @Autowired
+    private BookOwnerRepository bookOwnerRepository;
     public List<Book> getAll() {
         return bookRepository.findAll();
     }
@@ -34,10 +36,11 @@ public class BookService {
     }
 
     public List<Book> getAvailableForRenting() {
-        BookRepository bookRepository1 = bookRepository;
-        List<Book> bookList = new java.util.ArrayList<>(bookRepository1.findAll().stream().filter(b
-                -> b.getBookOwnersList().isEmpty()).toList());
-        bookList.addAll(bookRepository.getAvailableForRenting(LocalDate.now()));
-        return bookList;
+        BookOwnerRepository bookRepository1 = bookOwnerRepository;
+        List<BookOwner> bookList = bookRepository1.findAll().stream().filter(b
+                -> b.getBorrowedList().isEmpty()).toList();
+        List<Book> books = new java.util.ArrayList<>(bookList.stream().map(BookOwner::getBook).toList());
+        books.addAll(bookRepository.getAvailableForRenting(LocalDate.now()));
+        return books;
     }
 }
