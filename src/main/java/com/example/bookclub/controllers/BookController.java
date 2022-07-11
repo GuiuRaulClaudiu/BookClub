@@ -51,5 +51,8 @@ public class BookController {
         return bookService.saveAndFlush(existingBook);
     }
 
-
+    @RequestMapping(value = "/available", method = RequestMethod.GET)
+    public List<Book> getAvailableForRenting(){
+        return bookService.getAvailableForRenting();
+    }
 }

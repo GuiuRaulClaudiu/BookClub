@@ -1,6 +1,5 @@
 package com.example.bookclub.services;
 
-import com.example.bookclub.models.Book;
 import com.example.bookclub.models.Borrowed;
 import com.example.bookclub.repositories.AccountRepository;
 import com.example.bookclub.repositories.BookOwnerRepository;
@@ -40,8 +39,6 @@ public class BorrowedService {
     public List<Borrowed> getBorrowedBookByOthers(Integer id_acc) {
         return borrowedRepository.getBorrowedBookByOthers(id_acc);
     }
-
-
 
 
     public Borrowed getReferenceById(Integer id_acc) {

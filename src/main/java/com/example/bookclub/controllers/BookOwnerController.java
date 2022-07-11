@@ -1,5 +1,6 @@
 package com.example.bookclub.controllers;
 
+import com.example.bookclub.models.Book;
 import com.example.bookclub.models.BookOwner;
 import com.example.bookclub.services.BookOwnerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,5 @@ public class BookOwnerController {
     public void create(@RequestParam Integer id_acc, @RequestParam Integer id_book) {
         bookOwnerService.saveAndFlush(id_acc,id_book);
     }
-
-
 
 }

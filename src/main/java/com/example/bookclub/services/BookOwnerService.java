@@ -1,7 +1,5 @@
 package com.example.bookclub.services;
 
-import com.example.bookclub.models.Account;
-import com.example.bookclub.models.Book;
 import com.example.bookclub.models.BookOwner;
 import com.example.bookclub.repositories.AccountRepository;
 import com.example.bookclub.repositories.BookOwnerRepository;
@@ -9,7 +7,6 @@ import com.example.bookclub.repositories.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,4 +37,5 @@ public class BookOwnerService {
         bookOwner.setBook(bookRepository.findById(id_book).get());
         bookOwnerRepository.saveAndFlush(bookOwner);
     }
+
 }
