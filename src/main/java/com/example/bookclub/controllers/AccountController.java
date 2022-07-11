@@ -45,10 +45,4 @@ public class AccountController {
         return accountService.saveAndFlush(id_acc,account);
     }
 
-    @RequestMapping(value = "/NameOrEmail", method = RequestMethod.GET)
-    public Account getAccountByNameOrEmail(@RequestParam(value = "name",required = false) String name,
-                                           @RequestParam(value = "email", required = false) String email) {
-        return accountService.getAccountByNameOrEmail(name, email);
-    }
-
 }

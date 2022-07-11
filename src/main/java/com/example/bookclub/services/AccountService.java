@@ -37,7 +37,4 @@ public class AccountService {
         accountRepository.deleteById(id_acc);
     }
 
-    public Account getAccountByNameOrEmail(String name, String email) {
-        return accountRepository.getAccountByNameOrEmail(name,email);
-    }
 }

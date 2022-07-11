@@ -32,15 +32,9 @@ public class BorrowedService {
         borrowedRepository.saveAndFlush(borrowed);
     }
 
-    public List<Borrowed> getAvailableForRenting() {
-        return borrowedRepository.getAvailableForRenting(LocalDate.now());
-    }
-
     public List<Borrowed> getBorrowedBookByOthers(Integer id_acc) {
         return borrowedRepository.getBorrowedBookByOthers(id_acc);
     }
-
-
     public Borrowed getReferenceById(Integer id_acc) {
         return borrowedRepository.getReferenceById(id_acc);
     }

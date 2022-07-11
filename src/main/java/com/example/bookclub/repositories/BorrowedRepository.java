@@ -11,10 +11,6 @@ import java.util.List;
 
 @Repository
 public interface BorrowedRepository extends JpaRepository<Borrowed, Integer> {
-
-    @Query("SELECT b FROM Borrowed b \n" +
-            "WHERE b.return_date <= :now")
-    List<Borrowed> getAvailableForRenting(LocalDate now);
     @Query("SELECT b FROM Borrowed b \n" +
             "JOIN b.bookOwner o\n" +
             "ON b.bookOwner.id_book_owner = o.id_book_owner \n" +
