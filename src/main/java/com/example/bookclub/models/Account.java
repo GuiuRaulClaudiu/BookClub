@@ -39,4 +39,8 @@ public class Account {
     @OneToMany(mappedBy = "account")
     private List<Borrowed> borrowedList;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "account")
+    private List<Waiting_list> waiting_lists;
+
 }

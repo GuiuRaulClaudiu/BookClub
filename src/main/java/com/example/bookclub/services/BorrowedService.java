@@ -24,10 +24,10 @@ public class BorrowedService {
         return borrowedRepository.findAll();
     }
 
-    public void saveAndFlush(Integer id_acc, Integer id_book_owner, Integer borrow_period) {
+    public void saveAndFlush(Integer id_acc, Integer id_book, Integer borrow_period) {
         Borrowed borrowed = new Borrowed();
         borrowed.setAccount(accountRepository.findById(id_acc).get());
-        borrowed.setBookOwner(bookOwnerRepository.findById(id_book_owner).get());
+        borrowed.setBookOwner(bookOwnerRepository.findByBookId(id_book));
         borrowed.setBorrowed_date(LocalDate.now());
         borrowed.setReturn_date(LocalDate.now().plusWeeks(borrow_period));
         borrowedRepository.saveAndFlush(borrowed);
@@ -42,9 +42,7 @@ public class BorrowedService {
     }
 
 
-    public List<Borrowed> getTitleOrAuthor(String search) {
-        return borrowedRepository.getTitleOrAuthor(search);
-    }
+
 
     public Borrowed getReferenceById(Integer id_acc) {
         return borrowedRepository.getReferenceById(id_acc);
@@ -59,5 +57,13 @@ public class BorrowedService {
 
     public List<Borrowed> getBorrowedBooks(Integer id_acc) {
         return borrowedRepository.getBorrowedByAccount_id(id_acc);
+    }
+
+    public void deleteById(Integer id_acc) {
+        borrowedRepository.deleteById(id_acc);
+    }
+
+    public List<Borrowed> getTitleOrAuthor(String search) {
+        return borrowedRepository.getTitleOrAuthor(search);
     }
 }

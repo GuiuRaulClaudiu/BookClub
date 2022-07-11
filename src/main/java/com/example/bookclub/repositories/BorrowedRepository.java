@@ -21,14 +21,13 @@ public interface BorrowedRepository extends JpaRepository<Borrowed, Integer> {
             "WHERE o.account.id_acc = :id")
     List<Borrowed> getBorrowedBookByOthers(Integer id);
 
-    @Query("SELECT b FROM Borrowed b\n" +
-            "JOIN b.bookOwner o \n" +
-            "JOIN o.book bk \n" +
-            "WHERE bk.author = :search OR bk.title = :search")
-    List<Borrowed> getTitleOrAuthor(String search);
-
     @Query("SELECT b FROM Borrowed  b\n" +
             "WHERE b.account.id_acc = :id_acc")
     List<Borrowed> getBorrowedByAccount_id(Integer id_acc);
+
+    @Query("SELECT b FROM Borrowed b \n" +
+            "WHERE b.bookOwner.book.author = :search " +
+            "OR b.bookOwner.book.title = :search")
+    List<Borrowed> getTitleOrAuthor(String search);
 
 }
