@@ -1,14 +1,16 @@
 package com.example.bookclub.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
-@Entity()
+@Entity
 @Table(name = "books")
 public class Book {
     @Id
@@ -24,5 +26,9 @@ public class Book {
     @Column(name = "author")
     @NonNull
     private String author;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "book")
+    private List<BookOwner> bookOwnersList;
 
 }

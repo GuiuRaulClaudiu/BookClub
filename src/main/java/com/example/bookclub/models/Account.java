@@ -1,11 +1,13 @@
 package com.example.bookclub.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -29,5 +31,12 @@ public class Account {
     @Column(name = "email")
     private String email;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "account")
+    private List<BookOwner> bookOwnersList;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "account")
+    private List<Borrowed> borrowedList;
 
 }

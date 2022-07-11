@@ -18,15 +18,9 @@ public class BookOwnerService {
     @Autowired
     private BookOwnerRepository bookOwnerRepository;
     @Autowired
-    private BookRepository bookRepository;
-    @Autowired
     private AccountRepository accountRepository;
-
-    public BookOwnerService(BookOwnerRepository bookOwnerService, BookRepository bookRepository, AccountRepository accountRepository) {
-        this.bookOwnerRepository = bookOwnerService;
-        this.bookRepository = bookRepository;
-        this.accountRepository = accountRepository;
-    }
+    @Autowired
+    private BookRepository bookRepository;
 
     public List<BookOwner> getAll() {
         return bookOwnerRepository.findAll();
@@ -35,16 +29,15 @@ public class BookOwnerService {
     public BookOwner getReferenceById(Integer id_book_owner) {
         return bookOwnerRepository.getReferenceById(id_book_owner);
     }
-    @Transactional
-    public BookOwner saveAndFlush(BookOwner bookOwner) {
-        return bookOwnerRepository.save(bookOwner);
-    }
-
-    public void deleteById(Integer id_book_owner) {
-        bookOwnerRepository.deleteById(id_book_owner);
-    }
 
     public Optional<BookOwner> findByAccountId(Integer id_acc) {
         return bookOwnerRepository.findById(id_acc);
+    }
+
+    public void saveAndFlush(Integer id_acc, Integer id_book) {
+        BookOwner bookOwner = new BookOwner();
+        bookOwner.setAccount(accountRepository.findById(id_acc).get());
+        bookOwner.setBook(bookRepository.findById(id_book).get());
+        bookOwnerRepository.saveAndFlush(bookOwner);
     }
 }

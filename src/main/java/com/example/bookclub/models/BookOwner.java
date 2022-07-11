@@ -1,10 +1,15 @@
 package com.example.bookclub.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
+import java.util.List;
+
 @Getter
 @Setter
 @Entity(name = "book_owners")
@@ -15,12 +20,17 @@ public class BookOwner {
     @NonNull
     private Integer id_book_owner;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_owner",referencedColumnName = "id_acc")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @ManyToOne(cascade = CascadeType.ALL,optional = false)
     private Account account;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_book",referencedColumnName = "id_book")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @ManyToOne(cascade = CascadeType.ALL,optional = false)
     private Book book;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "bookOwner")
+    private List<Borrowed> borrowedList;
+
 
 }

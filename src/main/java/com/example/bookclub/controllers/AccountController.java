@@ -24,7 +24,7 @@ public class AccountController {
 
     @GetMapping
     @RequestMapping("{id_acc}")
-    public Object getById(@PathVariable Integer id_acc) {
+    public Account getById(@PathVariable Integer id_acc) {
         return accountService.getReferenceById(id_acc);
     }
 
@@ -42,9 +42,7 @@ public class AccountController {
 
     @RequestMapping(value = "{id_acc}", method = RequestMethod.PUT)
     public Account update(@PathVariable Integer id_acc, @RequestBody Account account) {
-        Account existingAccount = accountService.getReferenceById(id_acc);
-        BeanUtils.copyProperties(account, existingAccount, "id_acc");
-        return accountService.saveAndFlush(existingAccount);
+        return accountService.saveAndFlush(id_acc,account);
     }
 
     @RequestMapping(value = "/NameOrEmail", method = RequestMethod.GET)
